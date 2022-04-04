@@ -1,4 +1,5 @@
 use crate::{Error, SourceFile, SourceName, SourcePos};
+use std::io;
 use std::path::{Path, PathBuf};
 
 /// A file context manages finding and loading files.
@@ -29,7 +30,7 @@ use std::path::{Path, PathBuf};
 /// ```
 pub trait FileContext: Sized + std::fmt::Debug {
     /// Anything that can be read can be a File in an implementation.
-    type File: std::io::Read;
+    type File: io::Read;
 
     /// Find a file for `@import`
     ///
@@ -168,9 +169,24 @@ impl FsFileContext {
     ///
     /// Get a source file from this FsFileContext and a path.
     pub fn file(&self, path: &Path) -> Result<SourceFile, Error> {
-        let source = SourceName::root(path.display());
-        let mut f = std::fs::File::open(path)
-            .map_err(|e| Error::Input(source.name().to_string(), e))?;
+        let error =
+            |e: io::Error| Error::Input(path.display().to_string(), e);
+        let other_err =
+            |e: &str| error(io::Error::new(io::ErrorKind::Other, e));
+        let mut f = std::fs::File::open(path).map_err(error)?;
+        // Make sure there is a '/' before the file name in path
+        // to benefit finding relative urls on windows.
+        let urlpath = if let Some(base) = path.parent() {
+            let file = path
+                .file_name()
+                .ok_or_else(|| other_err("expected a file"))?
+                .to_str()
+                .ok_or_else(|| other_err("please use utf-8 file names"))?;
+            format!("{}/{}", base.display(), file)
+        } else {
+            path.display().to_string()
+        };
+        let source = SourceName::root(urlpath);
         SourceFile::read(&mut f, source)
     }
 }
