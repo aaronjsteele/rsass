@@ -53,7 +53,6 @@ fn conflict() {
     );
 }
 #[test]
-#[ignore] // wrong error
 fn core_module() {
     let runner = runner().with_cwd("core_module");
     assert_eq!(
