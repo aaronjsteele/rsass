@@ -282,7 +282,7 @@ mod test_loop {
         );
     }
     #[test]
-    #[ignore] // missing error
+    #[ignore] // wrong error
     fn use_to_import() {
         let runner = runner().with_cwd("use_to_import");
         assert_eq!(

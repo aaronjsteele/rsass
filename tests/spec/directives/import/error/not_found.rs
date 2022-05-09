@@ -13,7 +13,6 @@ fn runner() -> crate::TestRunner {
 }
 
 #[test]
-#[ignore] // missing error
 fn directory_dot_import() {
     let runner = runner().with_cwd("directory_dot_import");
     assert_eq!(
@@ -45,7 +44,6 @@ fn no_extension() {
     );
 }
 #[test]
-#[ignore] // missing error
 fn parent_relative() {
     let runner = runner().with_cwd("parent_relative");
     assert_eq!(

@@ -380,7 +380,6 @@ mod import_to_forward {
             );
         }
         #[test]
-        #[ignore] // wrong error
         fn mixin() {
             let runner = runner().with_cwd("mixin");
             assert_eq!(
@@ -433,7 +432,6 @@ mod inaccessible {
             }
 
             #[test]
-            #[ignore] // wrong error
             fn different_separator() {
                 let runner = runner().with_cwd("different_separator");
                 assert_eq!(
@@ -450,7 +448,6 @@ mod inaccessible {
                 );
             }
             #[test]
-            #[ignore] // wrong error
             fn same_separator() {
                 let runner = runner().with_cwd("same_separator");
                 assert_eq!(
@@ -468,7 +465,6 @@ mod inaccessible {
             }
         }
         #[test]
-        #[ignore] // wrong error
         fn mixin() {
             let runner = runner().with_cwd("mixin");
             assert_eq!(
@@ -523,7 +519,6 @@ mod inaccessible {
     );
         }
         #[test]
-        #[ignore] // wrong error
         fn mixin() {
             let runner = runner().with_cwd("mixin");
             assert_eq!(
@@ -569,7 +564,6 @@ mod inaccessible {
             }
 
             #[test]
-            #[ignore] // wrong error
             fn mixin() {
                 let runner = runner().with_cwd("mixin");
                 assert_eq!(
@@ -587,7 +581,6 @@ mod inaccessible {
             }
         }
         #[test]
-        #[ignore] // wrong error
         fn mixin() {
             let runner = runner().with_cwd("mixin");
             assert_eq!(
@@ -626,7 +619,6 @@ mod inaccessible {
             }
 
             #[test]
-            #[ignore] // wrong error
             fn mixin() {
                 let runner = runner().with_cwd("mixin");
                 assert_eq!(
