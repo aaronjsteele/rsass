@@ -3,11 +3,12 @@ target: fuzz_rsass_sass
 duration: 300
 
 tests:
-  - file:///fuzz/in
+  - file:///rsass/fuzz/in
 
 cmds:
   - cmd: /fuzz_rsass_sass
     env:
       DISABLE_SMOKETEST: '1'
+      MFUZZ_COMPAT_LEVEL: '1'
     afl: true
 
