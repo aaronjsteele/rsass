@@ -3,7 +3,7 @@ target: fuzz_rsass_sass
 duration: 300
 
 tests:
-  - file:///in
+  - file:///fuzz/in
 
 cmds:
   - cmd: /fuzz_rsass_sass
