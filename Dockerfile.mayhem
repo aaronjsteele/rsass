@@ -14,7 +14,9 @@ FROM --platform=linux/amd64 rust:1.60-buster
 RUN cargo install afl
 
 # Copy the compiled target and the input cases
-COPY --from=rust-builder /rsass/fuzz/target/debug/fuzz_rsass_sass /rsass/fuzz/in /
+COPY --from=rust-builder /rsass/fuzz/target/debug/fuzz_rsass_sass /
+COPY --from=rust-builder /rsass/fuzz/in /in
+COPY --from=rust-builder /rsass/fuzz/in /tests
 
 # Set to fuzz!
 ENTRYPOINT ["cargo", "afl", "fuzz", "-i", "/in", "-o", "/out"]
