@@ -1,5 +1,5 @@
 # Use the example in Mayhem Docs as an example/starting point
-FROM rust:1.60-buster as rust-builder
+FROM rust:1.60-buster as builder
 RUN cargo install afl
 
 # Add the source code to the image and build the target
@@ -8,14 +8,19 @@ WORKDIR /rsass/fuzz
 RUN cargo afl build --bin fuzz_rsass_sass
 # Built target is: /rsass/fuzz/target/debug/fuzz_rsass_sass
 
+# To get around strange issues with tests, we will remove the tests directory...
+RUN rm -rf /rsass/tests && \
+    mkdir /rsass/tests && \
+    copy /rsass/fuzz/in/* /rsass/tests
+
 # To simplify matters, we'll copy the compiled target as well as
 # the fuzz input folder to a new image with AFL. This helps save some space.
 FROM --platform=linux/amd64 rust:1.60-buster
 RUN cargo install afl
 
 # Copy the compiled target and the input cases
-COPY --from=rust-builder /rsass/fuzz/target/debug/fuzz_rsass_sass /
-COPY --from=rust-builder /rsass/fuzz/in /in
+COPY --from=builder /rsass/fuzz/target/debug/fuzz_rsass_sass /
+COPY --from=builder /rsass/fuzz/in /in
 
 # Set to fuzz!
 ENTRYPOINT ["cargo", "afl", "fuzz", "-i", "/in", "-o", "/out"]

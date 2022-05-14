@@ -2,9 +2,6 @@ project: rsass
 target: fuzz_rsass_sass
 duration: 300
 
-tests:
-  - file://in
-
 cmds:
   - cmd: /fuzz_rsass_sass
     env:
