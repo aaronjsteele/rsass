@@ -11,7 +11,7 @@ RUN cargo afl build --bin fuzz_rsass_sass
 # To get around strange issues with tests, we will remove the tests directory...
 RUN rm -rf /rsass/tests && \
     mkdir /rsass/tests && \
-    copy /rsass/fuzz/in/* /rsass/tests
+    cp /rsass/fuzz/in/* /rsass/tests
 
 # To simplify matters, we'll copy the compiled target as well as
 # the fuzz input folder to a new image with AFL. This helps save some space.
