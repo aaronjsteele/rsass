@@ -1,0 +1,22 @@
+[package]
+name = "fuzz"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+afl = "*"
+rsass = { path = ".." }
+
+# Prevent this from interfering with workspaces
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "fuzz_rsass_sass"
+path = "src/fuzz_rsass_sass.rs"
+
+[[bin]]
+name = "fuzz_rsass_value"
+path = "src/fuzz_rsass_value.rs"

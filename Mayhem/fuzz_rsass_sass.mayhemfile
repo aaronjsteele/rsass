@@ -1,0 +1,9 @@
+project: rsass
+target: fuzz_rsass_sass
+duration: 300
+
+cmds:
+  - cmd: /fuzz_rsass_sass
+    env:
+      DISABLE_SMOKETEST: '1'
+    afl: true
