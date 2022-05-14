@@ -9,6 +9,6 @@ cmds:
   - cmd: /fuzz_rsass_sass
     env:
       DISABLE_SMOKETEST: '1'
-      MFUZZ_COMPAT_LEVEL: '1'
+      MFUZZ_COMPAT_LEVEL: '2'
     afl: true
 
